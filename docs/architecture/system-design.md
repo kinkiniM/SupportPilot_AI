@@ -560,6 +560,32 @@ An LLM-generated request is therefore **not equivalent to permission**.
 
 The initial backend will be deployed as one application while maintaining internal module boundaries.
 
+### Docker-First Development
+
+SupportPilot AI will use a **Docker-first development approach** from Phase 2 onward.
+
+Instead of relying on a project-specific local Python environment as the primary runtime, the application and its supporting services will be developed and run through Docker.
+
+The initial local development environment will be structured around Docker Compose:
+
+```text
+Docker Compose
+      │
+      ├── FastAPI Backend
+      ├── PostgreSQL
+      └── Frontend
+```
+
+Benefits of this approach include:
+
+- Consistent development environments
+- Reproducible dependencies
+- Easier PostgreSQL setup
+- Reduced "works on my machine" problems
+- A smoother transition from local development to deployment
+
+The actual container configuration will be introduced during **Phase 2 — Project Setup** and refined during **Phase 16 — Docker Containerization**.
+
 Conceptual structure:
 
 ```text
@@ -595,6 +621,7 @@ This approach keeps initial development and deployment manageable while allowing
 | LLM | Configurable provider |
 | Embeddings | Configurable embedding model |
 | Containerization | Docker |
+| Local orchestration | Docker Compose |
 | Deployment | Render |
 | Version control | Git + GitHub |
 
@@ -721,6 +748,7 @@ The system will follow these principles:
 The architecture will be implemented progressively:
 
 ```text
+Phase 2  → Docker-First Project Setup
 Phase 3  → PostgreSQL Database Design
 Phase 4  → SQL Layer + Database Connection
 Phase 5  → FastAPI Backend
@@ -742,7 +770,7 @@ Phase 17 → Deployment
 
 ## 19. Final Architecture Summary
 
-SupportPilot AI will initially use a **modular monolithic architecture** with:
+SupportPilot AI will initially use a **Docker-first modular monolithic architecture** with:
 
 ```text
 Streamlit
