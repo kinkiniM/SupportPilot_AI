@@ -1,0 +1,36 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+    container_name: supportpilot-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: supportpilot-frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:16
+    container_name: supportpilot-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
